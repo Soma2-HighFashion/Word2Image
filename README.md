@@ -1,10 +1,11 @@
-DCGAN.torch: Train your own image generator
-[Original Source](https://github.com/soumith/dcgan.torch)
+DCGAN.torch: Train your own image generator [Original Source](https://github.com/soumith/dcgan.torch)
+
 ===========================================================
 
-## BSD License
-## For dcgan.torch software
-## Copyright (c) 2015, Facebook, Inc. All rights reserved.
+BSD License
+For dcgan.torch software
+Copyright (c) 2015, Facebook, Inc. All rights reserved.
+
 
 # Prerequisites
 - Computer with Linux or OSX
