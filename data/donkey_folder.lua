@@ -52,14 +52,26 @@ local mean,std
 local trainHook = function(self, path)
    collectgarbage()
    local input = loadImage(path)
+   
+   -- do random crop if fineSize/sampleSize is configured 
+   --  to be smaller than NN's input dimensions, loadSize
    local iW = input:size(3)
    local iH = input:size(2)
-
-   -- do random crop
-   local oW = sampleSize[2];
+   local oW = sampleSize[2]
    local oH = sampleSize[2]
-   local h1 = math.ceil(torch.uniform(1e-2, iH-oH))
-   local w1 = math.ceil(torch.uniform(1e-2, iW-oW))
+
+   if (iW > oW) then 
+      w1 = math.ceil(torch.uniform(1e-2, iW-oW))
+   else
+      w1 = 0
+   end
+
+   if (iH > oH) then
+      h1 = math.ceil(torch.uniform(1e-2, iH-oH))
+   else
+      h1 = 0
+   end
+
    local out = image.crop(input, w1, h1, w1 + oW, h1 + oH)
    assert(out:size(2) == oW)
    assert(out:size(3) == oH)

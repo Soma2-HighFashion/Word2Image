@@ -4,7 +4,7 @@ util = paths.dofile('util.lua')
 torch.setdefaulttensortype('torch.FloatTensor')
 
 opt = {
-    batchSize = 32,        -- number of samples to produce
+    batchSize = 1,        -- number of samples to produce
     noisetype = 'normal',  -- type of noise distribution (uniform / normal).
     net = '',              -- path to the generator network
     imsize = 1,            -- used to produce larger images. 1 = 64px. 2 = 80px, 3 = 96px, ...
@@ -12,10 +12,10 @@ opt = {
     name = 'generation1',  -- name of the file saved
     gpu = 1,               -- gpu mode. 0 = CPU, 1 = GPU
     display = 1,           -- Display image: 0 = false, 1 = true
-    nz = 100,              
+    nz = 75,              
 }
 for k,v in pairs(opt) do opt[k] = tonumber(os.getenv(k)) or os.getenv(k) or opt[k] end
-print(opt)
+--print(opt)
 if opt.display == 0 then opt.display = false end
 
 assert(net ~= '', 'provide a generator model')
@@ -29,7 +29,7 @@ if torch.type(net:get(1)) == 'nn.View' then
     net:remove(1)
 end
 
-print(net)
+--print(net)
 
 if opt.noisetype == 'uniform' then
     noise:uniform(-1, 1)
@@ -79,14 +79,14 @@ end
 util.optimizeInferenceMemory(net)
 
 local images = net:forward(noise)
-print('Images size: ', images:size(1)..' x '..images:size(2) ..' x '..images:size(3)..' x '..images:size(4))
+--print('Images size: ', images:size(1)..' x '..images:size(2) ..' x '..images:size(3)..' x '..images:size(4))
 images:add(1):mul(0.5)
-print('Min, Max, Mean, Stdv', images:min(), images:max(), images:mean(), images:std())
-image.save(opt.name .. '.png', image.toDisplayTensor(images))
-print('Saved image to: ', opt.name .. '.png')
+--print('Min, Max, Mean, Stdv', images:min(), images:max(), images:mean(), images:std())
+image.save('./../HighFashionServer/static_files/generator/' .. opt.name .. '.png', image.toDisplayTensor(images))
+print(opt.name .. '.png')
 
 if opt.display then
     disp = require 'display'
     disp.image(images)
-    print('Displayed image')
+    --print('Displayed image')
 end
