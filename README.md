@@ -15,7 +15,7 @@ Dataset is street snap images(128x128).
 This network is generate images of 128x128 pixels.    
 These are generated images by DCGAN.
 
-![images](images/generate_samples.png)
+![images](sample_images/generate_samples.png)
 
 ## Word2Vec
 
