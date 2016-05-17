@@ -95,12 +95,12 @@ for i = 1, opt.batchSize do
 			break
 		end
 	end
-	print('Images size: ', images[i]:size(1)..' x '..images[i]:size(2) ..' x '..images[i]:size(3))
-	print(startIndex)
+--	print('Images size: ', images[i]:size(1)..' x '..images[i]:size(2) ..' x '..images[i]:size(3))
+--	print(startIndex)
 	cropImages[i] = image.crop(images[i], startIndex-2, 0 , startIndex+40, 128)
 end
 --print('Min, Max, Mean, Stdv', images:min(), images:max(), images:mean(), images:std())
-print('cropImages size: ', cropImages:size(1)..' x '..cropImages:size(2) ..' x '..cropImages:size(3)..' x '..cropImages:size(4))
+--print('cropImages size: ', cropImages:size(1)..' x '..cropImages:size(2) ..' x '..cropImages:size(3)..' x '..cropImages:size(4))
 
 --generator_path = '/home/dj/HighFashionProject/design_studio/static_files/generator/'
 generator_path = './../..//design_studio/static_files/generator/'
