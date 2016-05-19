@@ -5,7 +5,7 @@ util = paths.dofile('util.lua')
 
 opt = {
    dataset = 'folder',       -- imagenet / lsun / folder
-   batchSize = 9,
+   batchSize = 16,
    loadSize = 128,
    fineSize = 128,
    nz = 75,               -- #  of dim for Z

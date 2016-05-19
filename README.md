@@ -8,8 +8,6 @@
 
 Dataset is street snap images(128x128).
 
-![images](example)
-
 ### Generative Image
 
 This network is generate images of 128x128 pixels.    
