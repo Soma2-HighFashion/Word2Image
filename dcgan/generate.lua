@@ -84,20 +84,21 @@ local cropImages = torch.Tensor(opt.batchSize, 3, 128, 42)
 --print('images size: ', images:size(1)..' x '..images:size(2) ..' x '..images:size(3)..' x '..images:size(4))
 images:add(1):mul(0.5)
 
+cropRange = 20;
 for i = 1, opt.batchSize do
-	startPatch = image.crop(images[i], 0, 0, 5, 5)
-	upper = startPatch:mean()+0.16; lower = startPatch:mean()-0.16
+	startPatch = image.crop(images[i], 0, 80, cropRange, 80+cropRange)
 	startIndex = 0
-	for j = 3, 48 do
-		local patch = image.crop(images[i], j-3, 0, j, 3)
+	threshold = torch.abs(startPatch:sum() - image.crop(images[i], 10, 80, 30, 100):sum()) + 5
+	for j = 30, 48 do
+		local patch = image.crop(images[i], j-cropRange, 80, j, 80+cropRange)
 		startIndex = j
-		if(patch:mean() > upper or patch:mean() < lower) then
+		print(torch.abs(startPatch:sum() - patch:sum()), threshold) 
+		if(torch.abs(startPatch:sum() - patch:sum()) > threshold) then
 			break
 		end
 	end
---	print('Images size: ', images[i]:size(1)..' x '..images[i]:size(2) ..' x '..images[i]:size(3))
---	print(startIndex)
-	cropImages[i] = image.crop(images[i], startIndex-2, 0 , startIndex+40, 128)
+	print(startIndex)
+	cropImages[i] = image.crop(images[i], startIndex, 0 , startIndex+42, 128)
 end
 --print('Min, Max, Mean, Stdv', images:min(), images:max(), images:mean(), images:std())
 --print('cropImages size: ', cropImages:size(1)..' x '..cropImages:size(2) ..' x '..cropImages:size(3)..' x '..cropImages:size(4))
