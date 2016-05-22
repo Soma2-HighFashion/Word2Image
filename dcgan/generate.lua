@@ -92,12 +92,12 @@ for i = 1, opt.batchSize do
 	for j = 30, 48 do
 		local patch = image.crop(images[i], j-cropRange, 80, j, 80+cropRange)
 		startIndex = j
-		print(torch.abs(startPatch:sum() - patch:sum()), threshold) 
+--		print(torch.abs(startPatch:sum() - patch:sum()), threshold) 
 		if(torch.abs(startPatch:sum() - patch:sum()) > threshold) then
 			break
 		end
 	end
-	print(startIndex)
+--	print(startIndex)
 	cropImages[i] = image.crop(images[i], startIndex, 0 , startIndex+42, 128)
 end
 --print('Min, Max, Mean, Stdv', images:min(), images:max(), images:mean(), images:std())
