@@ -81,16 +81,15 @@ util.optimizeInferenceMemory(net)
 local images = net:forward(noise)
 local cropImages = torch.Tensor(opt.batchSize, 3, 128, 42)
 
---print('images size: ', images:size(1)..' x '..images:size(2) ..' x '..images:size(3)..' x '..images:size(4))
 images:add(1):mul(0.5)
 
 cropRange = 20;
 for i = 1, opt.batchSize do
-	startPatch = image.crop(images[i], 0, 80, cropRange, 80+cropRange)
+	startPatch = image.crop(images[i], 0, 64, cropRange, 64+cropRange)
 	startIndex = 0
-	threshold = torch.abs(startPatch:sum() - image.crop(images[i], 10, 80, 30, 100):sum()) + 5
+	threshold = torch.abs(startPatch:sum() - image.crop(images[i], 10, 64, 10+cropRange, 64+cropRange):sum()) + 5
 	for j = 30, 48 do
-		local patch = image.crop(images[i], j-cropRange, 80, j, 80+cropRange)
+		local patch = image.crop(images[i], j-cropRange, 64, j, 64+cropRange)
 		startIndex = j
 --		print(torch.abs(startPatch:sum() - patch:sum()), threshold) 
 		if(torch.abs(startPatch:sum() - patch:sum()) > threshold) then

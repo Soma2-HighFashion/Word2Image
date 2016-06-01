@@ -9,3 +9,5 @@ images/
 .ipynb_checkpoints/
 *.swp
 *.pyc
+analysis_model-*
+discriminator_model-*
