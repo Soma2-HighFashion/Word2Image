@@ -19,7 +19,7 @@ if __name__ == "__main__":
 	config = parser.parse_args()
 
 	#Load Test data
-	image_count = (3,6)
+	image_count = (5,6)
 	patch_count = 20
 	X = generate_patches(img2numpy_arr(config.test_path), image_count, patch_count)
 

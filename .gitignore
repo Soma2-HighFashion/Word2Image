@@ -11,3 +11,5 @@ images/
 *.pyc
 analysis_model-*
 discriminator_model-*
+resnet_analysis-*
+pre-trained/

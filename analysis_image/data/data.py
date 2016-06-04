@@ -13,9 +13,13 @@ def img2numpy_arr(img_path):
     return np.array(Image.open(img_path))
 
 def generate_patches(ndarr, image_count, patch_count):
+	print ndarr.shape
+
 	y,x = image_count
 	img_data = np.empty((patch_count*y*x, PATCH_GEOMETRY[0], PATCH_GEOMETRY[1], 3), 
 						dtype="float32")
+	print y, x, img_data.shape
+
 	patch_index = 0
 	for i in range(y):
 		crop_y_indices = (i*GEOMETRY[0], (i+1)*GEOMETRY[0])	
@@ -24,6 +28,9 @@ def generate_patches(ndarr, image_count, patch_count):
 			img = ndarr[crop_y_indices[0]:crop_y_indices[1], 
 						crop_x_indices[0]:crop_x_indices[1],
 						:]
+
+			print crop_y_indices, crop_x_indices
+
 			step = (GEOMETRY[0] - PATCH_GEOMETRY[0]) / (patch_count-1)
 			
 			patch_image = np.array(
