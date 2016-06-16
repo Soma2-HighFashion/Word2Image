@@ -15,7 +15,7 @@ opt = {
     nz = 75,              
 }
 for k,v in pairs(opt) do opt[k] = tonumber(os.getenv(k)) or os.getenv(k) or opt[k] end
---print(opt)
+
 if opt.display == 0 then opt.display = false end
 
 assert(net ~= '', 'provide a generator model')
@@ -29,13 +29,14 @@ if torch.type(net:get(1)) == 'nn.View' then
     net:remove(1)
 end
 
---print(net)
-
 if opt.noisetype == 'uniform' then
     noise:uniform(-1, 1)
 elseif opt.noisetype == 'normal' then
     noise:normal(0, 1)
 end
+
+torch_path = './../..//design_studio/static_files/torch/'
+torch.save(torch_path .. opt.name .. ".bin", noise)
 
 noiseL = torch.FloatTensor(opt.nz):uniform(-1, 1)
 noiseR = torch.FloatTensor(opt.nz):uniform(-1, 1)
@@ -91,18 +92,13 @@ for i = 1, opt.batchSize do
 	for j = 30, 48 do
 		local patch = image.crop(images[i], j-cropRange, 64, j, 64+cropRange)
 		startIndex = j
---		print(torch.abs(startPatch:sum() - patch:sum()), threshold) 
 		if(torch.abs(startPatch:sum() - patch:sum()) > threshold) then
 			break
 		end
 	end
---	print(startIndex)
 	cropImages[i] = image.crop(images[i], startIndex, 0 , startIndex+42, 128)
 end
---print('Min, Max, Mean, Stdv', images:min(), images:max(), images:mean(), images:std())
---print('cropImages size: ', cropImages:size(1)..' x '..cropImages:size(2) ..' x '..cropImages:size(3)..' x '..cropImages:size(4))
 
---generator_path = '/home/dj/HighFashionProject/design_studio/static_files/generator/'
 generator_path = './../..//design_studio/static_files/generator/'
 image.save(generator_path .. opt.name .. '.png', image.toDisplayTensor(cropImages))
 print(opt.name .. '.png')
@@ -110,5 +106,4 @@ print(opt.name .. '.png')
 if opt.display then
     disp = require 'display'
     disp.image(cropImages)
-    --print('Displayed image')
 end

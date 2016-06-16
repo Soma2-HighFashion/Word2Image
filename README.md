@@ -17,8 +17,12 @@ These are generated images by DCGAN.
 
 ## Word2Vec
 
-
+Use Pre-trained Model : [GoogleNews-vectors-negative300](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit)
 
 ## Integration
 
-translator + Word2Vec + DCGAN => Generate Image.
+translator(Ko => En) -> Word2Vec(Pre-trained model)  
+                                             -> input_text <-> gender_words, category_words
+	                                                         -> Find Best Match Image => Generate Image.  
+                                             -> Image Analysis(Gender, Category)  
+      DCGAN          -> Discriminator Model(Good / Bad)

@@ -16,10 +16,12 @@ from tflearn.layers.estimator import regression
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--t', action='store', dest='test_path', type=str, help='Test Data Path')
+	parser.add_argument('--i', action='store', dest='image_count', type=str, help='Test Image Count')
 	config = parser.parse_args()
 
 	#Load Test data
-	image_count = (5,6)
+	image_count = (config.image_count).split(",")
+	image_count = (int(image_count[0]), int(image_count[1]))
 	patch_count = 20
 	X = generate_patches(img2numpy_arr(config.test_path), image_count, patch_count)
 
