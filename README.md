@@ -21,8 +21,8 @@ Use Pre-trained Model : [GoogleNews-vectors-negative300](https://drive.google.co
 
 ## Integration
 
-translator(Ko => En) -> Word2Vec(Pre-trained model)  
-                                             -> input_text <-> gender_words, category_words
-	                                                         -> Find Best Match Image => Generate Image.  
-                                             -> Image Analysis(Gender, Category)  
-      DCGAN          -> Discriminator Model(Good / Bad)
+- translator(Ko => En) -> Word2Vec(Pre-trained model)
+	- similarity(input_text, gender_words, category_words)
+		- Find Best Match Image => Generate Image.
+	- Image Analysis(Gender, Category)
+- DCGAN          -> Discriminator Model(Good / Bad)
